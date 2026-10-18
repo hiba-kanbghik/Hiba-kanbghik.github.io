@@ -91,11 +91,46 @@ input[type=range]{width:min(86vw,360px);accent-color:var(--rose);height:34px}
 #gd{width:100%;border-radius:20px;background:#1a0510;touch-action:manipulation}.fl .pt{transform:scale(.15);transition:transform .8s;transform-box:fill-box;transform-origin:50% 100%}.fl.on .pt{transform:scale(1)}.fl.on .co{fill:#ffd6e3}
 .meter{height:24px;border-radius:20px;background:#fff;border:2px solid #f6c5d6;overflow:hidden}
 #s6{background:#0b0212;color:#fff}#nc{position:fixed;inset:0}#s6 h1{position:relative;color:#ffb3d6;text-shadow:0 0 18px #e0497f,0 0 40px #c2185b}
+.gn{width:100%;display:block;border-radius:20px;background:radial-gradient(circle at 50% 75%,#6a1433,#1a0510 72%);touch-action:manipulation}
+.gn .fw{cursor:pointer}.gn .hd{transform:scale(.12);transform-box:fill-box;transform-origin:50% 100%;transition:transform 1s cubic-bezier(.3,1.6,.5,1);filter:drop-shadow(0 0 5px #ff3d7f)}
+.gn .fw.on .hd{transform:scale(1)}.gn .sy{animation:swy 4s ease-in-out infinite;transform-box:fill-box;transform-origin:50% 100%}@keyframes swy{50%{transform:rotate(3deg)}}
+.lips .paper p{margin:0 0 .8em;opacity:0;animation:fin .9s forwards}
+.mb{display:flex;align-items:center;justify-content:center;gap:6px;background:#fff;border-radius:60px;padding:16px 12px;box-shadow:0 0 0 8px #fff9,0 8px 18px #e0497f33}
+.mbx{display:flex;flex-direction:column;text-align:left;font-weight:600;color:var(--deep);font-size:.8rem}.mbx div{display:flex;align-items:center;border:3px solid var(--rose);border-radius:30px;background:#ffeef3;padding:2px 4px 2px 10px}
+.mbx input{font:inherit;font-size:.95rem;border:0;background:none;color:var(--deep);width:140px;outline:0}.mbx button{background:none;color:var(--rose);width:32px;height:32px;font-size:1.3rem;animation:beat 1.2s infinite}
+@keyframes jmp{30%{transform:translateY(-26px) scale(1.1,.9)}60%{transform:translateY(0) scale(.9,1.1)}}
+#sk2{width:100%;border-radius:20px;background:radial-gradient(circle at 50% 40%,#2a0f3a,#0b0212)}#sk2 .st{cursor:pointer}
+/* fit-to-screen */
+html,body{overflow:hidden}
+.scr{height:100dvh;gap:clamp(2px,1dvh,10px);padding:max(10px,env(safe-area-inset-top)) 12px max(10px,env(safe-area-inset-bottom));overscroll-behavior:contain}
+h1{font-size:clamp(1.6rem,min(8vw,5.2dvh),3.2rem);margin:.1em 0}h2{font-size:clamp(1.5rem,min(6.5vw,4.6dvh),2.6rem);margin:.1em 0}
+#qt{font-size:clamp(1.4rem,min(6.5vw,4.4dvh),2.6rem)!important}
+#s2 [style*="min-height"]{min-height:clamp(84px,17dvh,150px)!important;margin-top:0!important}
+.hint{font-size:clamp(1.05rem,2.8dvh,1.4rem);min-height:1.2em}
+#s1>svg,#ck svg,#mk svg,#ck3 svg{height:clamp(64px,14dvh,120px);width:auto}
+.dots i{width:clamp(40px,12vw,52px);height:clamp(44px,7.5dvh,56px)}
+.pad{grid-template-columns:repeat(3,clamp(60px,18vw,72px));gap:clamp(6px,1.2dvh,10px)}.pad button{height:clamp(40px,6.6dvh,56px)}
+.btn{padding:clamp(8px,1.5dvh,12px) 24px}
+#gv{width:min(86vw,360px,62dvh)}#env{width:min(72vw,300px,44dvh)}
+.grid,.grid.m3{grid-template-columns:repeat(3,1fr);gap:clamp(5px,1.2dvh,12px);max-width:min(440px,100%);margin:clamp(4px,1dvh,12px) 0}
+.g{padding:5px 3px 7px;border-radius:16px;font-size:clamp(.7rem,3vw,.9rem);line-height:1.1}
+.g svg.bx{width:clamp(40px,min(15vw,8.4dvh),76px);height:auto;aspect-ratio:1}
+#gr .g svg.bx{width:clamp(56px,min(24vw,13dvh),110px)}
+.card{max-height:94dvh;padding:16px 14px}
+#mini{left:12px;right:auto;top:max(10px,env(safe-area-inset-top));bottom:auto;width:40px;height:40px}
+/* music theme background */
+#bgfx{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+#bgfx i{position:absolute;border-radius:50%;filter:blur(36px);opacity:.55;animation:drift 14s ease-in-out infinite alternate}
+@keyframes drift{to{transform:translate(34px,-46px) scale(1.25)}}
+#eq{position:fixed;left:0;right:0;bottom:0;height:12dvh;z-index:0;pointer-events:none;display:flex;align-items:flex-end;gap:3px;padding:0 6px;opacity:0;transition:opacity 1s}body.pl #eq{opacity:.5}
+#eq i{flex:1;height:100%;background:linear-gradient(#ffb3cd,#e0497f);border-radius:5px 5px 0 0;transform-origin:bottom;transform:scaleY(.12);animation:eq 1s ease-in-out infinite}@keyframes eq{50%{transform:scaleY(.85)}}
+#np{position:fixed;top:max(16px,env(safe-area-inset-top));left:62px;z-index:60;font-family:Caveat;font-size:1.35rem;color:var(--deep);opacity:0;transition:opacity .8s;pointer-events:none}#np.on{opacity:1}
+.wd{cursor:pointer;line-height:1.3}.wd.sg{border-style:solid;background:#ffe3ec}
 @media(prefers-reduced-motion:reduce){*{animation-duration:.01s!important}}
 </style>
 </head>
 <body>
-<div id="fx"></div>
+<div id="bgfx"><i style="width:220px;height:220px;background:#ffb3cd;left:-60px;top:8%"></i><i style="width:260px;height:260px;background:#ffd6a8;right:-80px;top:40%;animation-delay:-5s"></i><i style="width:200px;height:200px;background:#e9b8ff;left:20%;bottom:-60px;animation-delay:-9s"></i></div><div id="eq"></div><div id="np"></div><div id="fx"></div>
 <button id="mini" aria-label="Music"><svg class="ic"><use href="#note"/></svg></button>
 <audio id="au" preload="auto"></audio>
 
@@ -194,7 +229,7 @@ input[type=range]{width:min(86vw,360px);accent-color:var(--rose);height:34px}
 <script>
 // ===== Settings: bddl hna =====
 const CODE="1012",FROM="Dyalek dima";
-const TRACKS=[{t:"Nghamer",a:"Bayadis, Manal & Shaw",f:"music/nghamer.mp3"},{t:"Kilowat",a:"Stormy",f:"music/kilowat.mp3"},{t:"Blue Love",a:"ElgrandeToto",f:"music/bluelove.mp3"}];
+const TRACKS=[{t:"Nghamer",a:"Bayadis, Manal & Shaw",f:"music/nghamer.mp3"},{t:"Kilowat",a:"Stormy",f:"music/kilowat.mp3"},{t:"Blue Love",a:"ElgrandeToto",f:"music/bluelove.mp3"},{t:"Habibati",a:"Love Theme",f:"music/habibati.mp3"}];
 const PHOTOS=[["photos/m1.jpg","Nhar tsawer 7obbna f l3ab"],["photos/m2.jpg","Yddi f yddek, w kolchi 3adi"],["photos/m3.jpg","Nti w ana, w l'qalb dyalna"]];
 const $=s=>document.querySelector(s),au=$("#au");
 const I=(n,c="")=>`<svg class="ic ${c}"><use href="#${n}"/></svg>`;
@@ -264,6 +299,8 @@ let done3=false;$("#rg").oninput=e=>{const v=+e.target.value;$("#nd").style.tran
 const SV=c=>`<svg class="bx" viewBox="0 0 100 100" style="--rb:${c}"><use href="#box"/></svg>`;
 const MAIN=[{n:"Dkrayat",id:"d",c:"#ff9ec0"},{n:"Ghnya",id:"p",c:"#ffd34d"},{n:"Rissala",id:"l",c:"#e0497f"}];
 const MORE=[{n:"Bouquet",id:"b",c:"#ff7aa8"},{n:"Jnan dyal l'ward",id:"j",c:"#c2185b"},{n:"Ghatti l'qalb",id:"s",c:"#ffb3cd"},{n:"Sahm l'7ob",id:"a",c:"#8bd3a8"},{n:"Kalimat dyalna",id:"k",c:"#9ec9ff"},{n:"Sbab dyal 7obbi",id:"r",c:"#ffb347"},{n:"Kanbghik b 11 logha",id:"g",c:"#c9a7ff"},{n:"Bons dyalek",id:"c",c:"#ff9ec0"}];
+
+MORE.push({n:"Wa3ud dyali",id:"w",c:"#ffd1a8"},{n:"Balounat",id:"o",c:"#a8e0ff"},{n:"Barid l'7ob",id:"m",c:"#ffc6da"},{n:"Nejma dyalna",id:"n",c:"#c9a8ff"});
 const seen=new Set();
 function fill(el,list,btn){list.forEach(g=>{const b=document.createElement("button");b.className="g";b.innerHTML=SV(g.c)+"<br>"+g.n;b.onclick=()=>{open_(g.id);seen.add(g.id);b.classList.add("done");if(list.every(x=>seen.has(x.id)))$(btn).style.display=""};el.appendChild(b)})}
 fill($("#gr"),MAIN,"#more");fill($("#gr2"),MORE,"#fin");$("#ck3").innerHTML=cat(3);
@@ -274,16 +311,26 @@ const NOTES=["Katkhelli qalbi yzher","Kankhtarek koul nhar","Dnya wlat 7lowa m3a
 const REASONS=["7it katdhak b9alb, w dhekti katkhelli nhar kollo yfreh","7it nti kat3rfi tfehmini bla ma n9ol chi 7aja","7it zwinti mchi ghir f wjhek, hiya f koul chi","7it m3aki kanhess rassi f dari","7it nti katkhelli l'ayyam l'3adiya tweli special","7it sawtek howa l'ahsan 7aja kanssme3","7it nti sabra w katbghini hakka kif ana","7it kanbghik w safi, bla 7ta sabab"];
 const COUP=["Bon dyal 3neq twil","Bon dyal sortie l'resto","Bon dyal film w popcorn","Bon dyal 'ana li ghan7ded had nhar'","Bon dyal ghda li katbghi"];
 const LG=[["Kanbghik","Darija"],["أحبك","3arbiya"],["Je t'aime","Français"],["I love you","English"],["Te quiero","Español"],["Ti amo","Italiano"],["愛してる","日本語"],["사랑해","한국어"],["Seni seviyorum","Türkçe"],["Ich liebe dich","Deutsch"],["Eu te amo","Português"]];
+
+REASONS.push("7it katsm3ini mnin kanhder 3la chi 7aja bla ma kanqta3","7it hta f l7zn katb9i hnana","7it dhktek katnssini kol t3b","7it nti katchjjeni nkon ahssan nsakha mni","7it rihtek kat3rf rassha 9bel ma tdkhl","7it kat7mli ma3ya 7ta tfahat dyali","7it nti ghir nti, bla ma tkhdmi bach tkouni","7it kol mra kanchoufek kanchouf l'mostaqbal","7it 3ndek qalb kbir w ma katbyni","7it mnin kat9ra f 3aynik kandkhol l'dar","7it hta ssmt m3ak 3ndou ma3na");
+REASONS.push("7it nti l'7aja li kanfkr fiha qbel ma nn3ss","7it mnin katkhrjo m3a b3d kolchi kaywli 7lou","7it kat9drini nkon rassi bla ma n7ss b l7ya","7it hta l'skout m3ak kayk3ed rayeh","7it katfhmini mn nadra bla kalam","7it nti dima l'ahsan 7ta f nhar li ma bghitiha","7it ghir smitek kat7mmer lwjh dyali","7it nti lmoukafaa li ma kont n3rf bli ghadi nstahlha.");
+REASONS.push("7it bnti l'3alam kaml, nti li kat9dri tkhlli kolchi ywli khfif","7it fkolla nhar jdid kan9ol lrassi: ana mchkor 7it nti kayna f 7yati","7it mnin kandkhol l'dar w nchoufek kandkhol m3a ferha sghira li ma kan3rf nwsfha");
+COUP.push("Bon dyal sbah kaml katfrj f film nta w nti","Bon dyal chokolata 3la 7sabi","Bon dyal 'rah ana li ghan3awnek f koul chi'","Bon dyal nhar bla tlifon, ghir nti w ana");
 const EX={};
 function open_(id){if(EX[id])EX[id]()}
 EX.d=()=>setM(`<h2>Dkrayat dyalna</h2><div style="position:relative;height:370px">`+PHOTOS.map((p,i)=>`<div class="pol" style="left:${[2,51,26][i]}%;top:${[0,8,52][i]}%;--r:${[-7,6,-3][i]}deg;animation-delay:${i*.4}s"><img src="${p[0]}" alt="">${p[1]}</div>`).join("")+`</div><p style="font-family:Caveat;font-size:1.6rem;color:var(--rose);margin:0">Captured memories</p>`);
 EX.p=()=>{setM(`<h2>Ghnya li katfekkerni fik</h2><div class="vin" id="vin"></div><b id="tt"></b><div id="ta" style="font-size:.9rem"></div><input type="range" id="sk" value="0" max="1000" style="width:100%"><div class="ctl"><button id="pv">${I("prv")}</button><button class="pp" id="pp"></button><button id="nx">${I("nxt")}</button></div><ul class="tl">${TRACKS.map((t,i)=>`<li data-i="${i}">${t.t}, ${t.a}</li>`).join("")}</ul>`);ui();
  $("#pp").onclick=()=>{au.paused?au.play():au.pause()};$("#pv").onclick=()=>load(ti-1,true);$("#nx").onclick=()=>load(ti+1,true);document.querySelectorAll(".tl li").forEach(l=>l.onclick=()=>load(+l.dataset.i,true));$("#sk").oninput=e=>{if(au.duration)au.currentTime=au.duration*e.target.value/1000}};
-EX.l=()=>setM(`<div class="lips"><div class="paper" style="background:#fff;font-family:Georgia,serif;font-size:.97rem"><b style="font-family:Caveat;font-size:1.6rem;color:var(--rose)">A Hiba dyali,</b><br>Kolchi 3lik nti, w ana bghit ghir t3rfi 9ddach ana mamnoun lli nti f 7yati. Men nhar jiti, 7yati wlat 7lowa, w kol chi 3adi wlla kbir b9a special 7it nti m3aya.<br>Kanbghik f lfra7 w f lhdou2, f dhk w f s9awt, w kanl9a rasi f 7odnek mhani. Hadchi 3omri ma ghansah.<br>W makhassnich nzid, ghir nti: nti ahsan 7aja ra7at liya.<div class="sig">${FROM}</div></div></div>`);
+EX.l=()=>{const T=["Bghit nktb lik chi 7aja kbira, walakin kol mra kanl9a lklam sghir 3la 9dd chno kanhess. Ghir bach t3rfi: nti l7aja l7lwa li wqa3at fhayati bla ma ntsnaha.","Nti ma3ndek 7ta fikra chhal kat3ni liya nhar li kanchouf smitek 3la tilifoun. Ila kenti frhana, kanfrh m3ak. Ila kenti ghadba, kan7ses b 7obbek. Dhktek hiya l'ghnya li kan7ab nssm3ha f koul sbah.","Kanbghik 7ta f lahdat li kat9ssri fihom, 7ta f lahdat li katkoni mqlga. Kanbghik b 3youbek 9bel mmizatek, 7it nti nti, w ma bghit tbdli walo.","Ana mchi kamel, walakin kandir jhdi bach nkon dima l'ktaf li kat3tmdi 3lih. F lferha ana m3ak, f l7zn ana m3ak, w f nhar li ma kayn la ferha la 7zn, ghan9ed m3ak nchrbo atay w nskto.","Kan7lm b nhar li ghadi nkber m3ak, w nb9a nchouf fik b nfs l3in li chftek biha lowla. Mn daba l 3omri l'jay, kolchi li kandir kandirou 7it f lakhir kan7ml fkri fik.","Chokran 3la sbrek, 3la 7nanek, w 3la wjoudek f 7yati. Kanbghik, w ghadi nb9a nbghik."];
+setM(`<div class="lips"><div class="paper" style="background:#fff;font-family:Georgia,serif;font-size:.97rem"><b style="font-family:Caveat;font-size:1.7rem;color:var(--rose)">A Hiba dyali,</b><br><br>${T.map((t,i)=>`<p style="animation-delay:${.5+i*1.1}s">${t}</p>`).join("")}<div class="sig" style="animation-delay:7s">${FROM}</div></div></div>`)};
 EX.b=()=>{const R=[[60,50],[100,38],[140,50],[78,78],[122,78]];setM(`<h2>Bouquet dyalek</h2><svg viewBox="0 0 200 200" width="190" class="bob"><g stroke="#4e9a63" stroke-width="4" stroke-linecap="round" fill="none">${R.map(r=>`<path d="M${r[0]} ${r[1]+14}Q${(r[0]+100)/2} 140 100 168"/>`).join("")}</g>${R.map((r,i)=>`<g transform="translate(${r[0]} ${r[1]})"><circle r="19" fill="${["#e0497f","#ff6fa5","#c2185b","#ff8fab","#e0497f"][i]}"/><path d="M-10 0a10 10 0 0 1 20 0 7 7 0 0 1-14 0 4 4 0 0 1 8 0" fill="none" stroke="#fff" stroke-opacity=".7" stroke-width="2.200"/><animateTransform attributeName="transform" type="translate" values="${r[0]} ${r[1]};${r[0]} ${r[1]-3};${r[0]} ${r[1]}" dur="${2+i*.3}s" repeatCount="indefinite"/></g>`).join("")}<path d="M62 120L138 120 112 186 88 186Z" fill="#fbe3c8" stroke="#e8c9a0" stroke-width="3"/><path d="M70 150q30 14 60 0" stroke="#e0497f" stroke-width="6" fill="none" stroke-linecap="round"/></svg><div class="bub">${NOTES.map((n,i)=>`<span style="animation-delay:${i*.35}s">${n}</span>`).join("")}</div>`)};
-EX.j=()=>{let f="";for(let i=0;i<7;i++){const x=24+i*52,y=130+(i%3)*14,h=60+(i*37%40);f+=`<g class="fl" data-i="${i}" transform="translate(${x} ${y})"><path d="M0 0Q-6 ${-h/2} 0 ${-h}" stroke="#b3123f" stroke-width="3" fill="none"/><g transform="translate(0 ${-h})">${[0,60,120,180,240,300].map(a=>`<g transform="rotate(${a})"><path class="pt" d="M0 0C-9-10-7-26 0-30 7-26 9-10 0 0Z" fill="${C[(i+a/60)%5|0]}"/></g>`).join("")}<circle class="co" r="5" fill="#ff4d8d"/></g></g>`}
- setM(`<h2>Jnan dyal l'ward</h2><p style="margin:0 0 8px">Dghti 3la koul nwara bach tzher</p><svg id="gd" viewBox="0 0 380 200"><rect width="380" height="200" fill="#1a0510"/>${[...Array(18)].map((_,i)=>`<g class="bob" style="animation-delay:${-i*.4}s"><use href="#hrt" x="${(i*61)%370}" y="${(i*43)%190}" width="9" height="9" fill="#ff4d8d" opacity=".5"/></g>`).join("")}${f}</svg>`);
- mc.querySelectorAll(".fl").forEach(e=>e.onclick=()=>{e.classList.add("on");boom(6)})};
+EX.j=()=>{const X=[36,84,132,180,228,276,322,108,252],Y=[200,178,208,160,204,172,196,236,238],H=[78,104,66,120,82,108,70,54,58];let g="",f="";
+for(let i=0;i<30;i++){const x=i*12.5,l=26+(i*17%30);g+=`<path class="sy" style="animation-delay:${-i*.3}s" d="M${x} 262Q${x+(i%2?7:-7)} ${262-l/2} ${x+(i%3-1)*6} ${262-l}" stroke="#7a1038" stroke-width="2.4" fill="none" opacity=".8"/>`}
+X.forEach((x,i)=>{const y=Y[i],h=H[i],s=i>6?.75:1;f+=`<g class="fw" data-i="${i}" transform="translate(${x} ${y}) scale(${s})"><g class="sy" style="animation-delay:${-i*.5}s"><path d="M0 0Q${i%2?9:-9} ${-h/2} 0 ${-h}" stroke="#d81b60" stroke-width="3" fill="none"/><path d="M0 ${-h*.3}q-15 -3 -17 -17q13 0 17 17zM0 ${-h*.52}q15 -3 17 -17q-13 0 -17 17z" fill="#a3124e"/><g transform="translate(0 ${-h})"><g class="hd">${[0,72,144,216,288].map(a=>`<ellipse cx="0" cy="-11" rx="6.5" ry="13" transform="rotate(${a})" fill="#ff4d8d"/>`).join("")}<circle r="5.5" fill="#ffd0e0"/></g></g></g><rect x="-20" y="${-h-26}" width="40" height="${h+30}" fill="transparent"/></g>`});
+setM(`<h2>Jnan dyal l'ward</h2><p id="gm" style="margin:0 0 8px">Dghti 3la koul nwara bach tzher</p><svg class="gn" viewBox="0 0 360 262">${g}${f}<g id="hs"></g></svg>`);
+let n=0;mc.querySelectorAll(".fw").forEach(e=>e.onclick=()=>{if(e.classList.contains("on"))return;e.classList.add("on");n++;const i=+e.dataset.i,cx=X[i],cy=Y[i]-H[i]*(i>6?.75:1);let h="";
+for(let k=0;k<5;k++){const dx=Math.random()*40-20,d=1.8+Math.random()*1.6;h+=`<use href="#hrt" width="12" height="12" x="${cx+dx-6}" y="${cy}" fill="#ff7aa8"><animate attributeName="y" from="${cy}" to="${cy-80-Math.random()*50}" dur="${d}s" fill="freeze"/><animate attributeName="opacity" from="1" to="0" dur="${d}s" fill="freeze"/></use>`}
+$("#hs").insertAdjacentHTML("beforeend",h);if(n===X.length){$("#gm").textContent="Koul nwara zharat, bhal qalbi mnin katddi mn hna. Nti jnani, a Hiba.";boom(30)}})};
 EX.s=()=>{setM(`<h2>Ghatti l'qalb</h2><p style="margin:0">Hk b sba3ek, 7ta tchouf chno khbit lik</p><div class="sw"><img src="photos/m2.jpg" alt=""><canvas id="sc" width="300" height="300"></canvas></div><div class="sig" id="sg" style="text-align:center;opacity:0;transition:opacity 1s">Yddi f yddek, dima.</div>`);
  const c=$("#sc"),x=c.getContext("2d"),g=x.createLinearGradient(0,0,300,300);g.addColorStop(0,"#ffb3cd");g.addColorStop(1,"#e0497f");x.fillStyle=g;x.fillRect(0,0,300,300);x.fillStyle="#ffffff88";for(let i=0;i<14;i++){x.beginPath();x.arc(30+(i*47)%260,30+(i*83)%250,9,0,7);x.fill()}
  let dn=false,n=0;const sc=e=>{const r=c.getBoundingClientRect(),px=(e.clientX-r.left)*300/r.width,py=(e.clientY-r.top)*300/r.height;x.globalCompositeOperation="destination-out";x.beginPath();x.arc(px,py,26,0,7);x.fill();if(++n%12===0){const d=x.getImageData(0,0,300,300).data;let z=0;for(let i=3;i<d.length;i+=64)if(!d[i])z++;if(z/(d.length/64)>.45){c.style.display="none";$("#sg").style.opacity=1;boom(50)}}};
@@ -295,11 +342,29 @@ EX.r=()=>{setM(`<h2>Sbab dyal 7obbi</h2><div class="paper" id="rs" style="min-he
 EX.g=()=>{let i=0;setM(`<h2>Kanbghik b 11 logha</h2><div id="lh" style="cursor:pointer;font-size:5rem;color:var(--rose)">${I("hrt","beat")}</div><div id="lt" style="font-family:Caveat;font-size:2.6rem;color:var(--rose);min-height:1.3em">Dghet 3la l'qalb</div><div id="ll"></div>`);$("#lh").onclick=()=>{const l=LG[i++%LG.length];$("#lt").textContent=l[0];$("#ll").textContent=l[1];boom(8)}};
 EX.c=()=>{setM(`<h2>Bons dyalek</h2><p>Dghti 3la bon bach tsta3mlih, w 3ayti liya!</p>${COUP.map(c=>`<div class="cp">${c}</div>`).join("")}`);mc.querySelectorAll(".cp").forEach(e=>e.onclick=()=>{e.classList.add("used");boom(20)})};
 
+EX.m=()=>{const M=["Objet: Kanmetik. Wsslat lik 3la l'qalb, wach lqitiha?","Objet: Ghir bach n9olik. Nti l'ahsan 7aja li wqa3at liya.","Objet: Tadkira. Chrbi lma, kooli, w 3rfi blli kayn chi wa7d kay7chem lik.","Objet: Wa3d. Ghan3awnek f koul chi, 7ta f ghsil l'wan.","Objet: Spam? La, hada 7obb 7a9i9i. Ma tms7ich."];let k=0;
+setM(`<h2>Barid l'7ob</h2><div class="mb"><label class="mbx">Email<div><input id="ml" value="hiba@kanbghik.ma" spellcheck="false"><button id="ms" aria-label="Sift">${I("hrt")}</button></div></label><svg id="mch" class="bob" width="92" height="92" viewBox="0 0 100 100"><ellipse cx="30" cy="90" rx="16" ry="8" fill="#ff3d7f"/><ellipse cx="70" cy="90" rx="16" ry="8" fill="#ff3d7f"/><circle cx="50" cy="52" r="38" fill="#ffc6da" stroke="#ff7aa8" stroke-width="3"/><g class="blink"><ellipse cx="40" cy="50" rx="3" ry="6" fill="#5a2140"/><ellipse cx="60" cy="50" rx="3" ry="6" fill="#5a2140"/></g><ellipse cx="30" cy="62" rx="6" ry="4" fill="#ff7aa8" opacity=".7"/><ellipse cx="70" cy="62" rx="6" ry="4" fill="#ff7aa8" opacity=".7"/><path d="M44 64q6 6 12 0" stroke="#5a2140" stroke-width="3" fill="none" stroke-linecap="round"/></svg></div><div class="paper" id="mo" style="margin-top:14px;min-height:64px;text-align:center">Dghet 3la l'qalb bach tjib l'barid</div>`);
+$("#ms").onclick=()=>{const c=$("#mch");c.style.animation="none";void c.getBoundingClientRect();c.style.animation="jmp .6s";setTimeout(()=>c.style.animation="",650);boom(8);const o=$("#mo");o.style.animation="none";void o.offsetWidth;o.style.animation="fin .6s";o.textContent=M[k++%M.length]}};
+EX.n=()=>{const P=[...Array(12)].map((_,i)=>{const t=Math.PI+i*Math.PI/6;return[180+8.6*16*Math.pow(Math.sin(t),3)/1.3,112-8.6*(13*Math.cos(t)-5*Math.cos(2*t)-2*Math.cos(3*t)-Math.cos(4*t))/1.3]});let k=0;
+const star=(x,y,i)=>`<g class="st" data-i="${i}" transform="translate(${x} ${y})"><circle r="17" fill="#c9a8ff" opacity=".12"><animate attributeName="r" values="13;19;13" dur="2s" repeatCount="indefinite"/></circle><path d="M0-9L2.6-2.6 9 0 2.6 2.6 0 9-2.6 2.6-9 0-2.6-2.6Z" fill="#fff"/></g>`;
+setM(`<h2>Nejma dyalna</h2><p id="nm" style="margin:0 0 8px">Dghet 3la njoum b tartib, men taht, bach nrsmo qalb</p><svg id="sk2" viewBox="0 0 360 250"><path id="hf" fill="#ff6fa5" opacity="0" d="M${P.map(p=>p.join(" ")).join("L")}Z"/><g id="ln"></g>${P.map((p,i)=>star(p[0],p[1],i)).join("")}</svg>`);
+mc.querySelectorAll(".st").forEach(e=>e.onclick=()=>{const i=+e.dataset.i;if(i!==k){const t=e.getAttribute("transform");e.animate([{transform:t+" scale(1)"},{transform:t+" scale(1.7)"},{transform:t+" scale(1)"}],300);return}
+const q=P[i],p=P[(i+11)%12];if(i>0)$("#ln").insertAdjacentHTML("beforeend",`<line x1="${p[0]}" y1="${p[1]}" x2="${q[0]}" y2="${q[1]}" stroke="#ffb3d6" stroke-width="2.5" stroke-linecap="round" pathLength="1" stroke-dasharray="1" stroke-dashoffset="1"><animate attributeName="stroke-dashoffset" from="1" to="0" dur=".5s" fill="freeze"/></line>`);
+k++;if(k===12){$("#ln").insertAdjacentHTML("beforeend",`<line x1="${q[0]}" y1="${q[1]}" x2="${P[0][0]}" y2="${P[0][1]}" stroke="#ffb3d6" stroke-width="2.5"/>`);$("#hf").style.transition="opacity 1.5s";$("#hf").style.opacity=".55";$("#nm").textContent="Had l'qalb dyalna f sma, w nti nejmti l'ula.";boom(40)}})};
+
+EX.w=()=>{const W=["Ghan9ra lik kolchi b sbr, 7ta f nhar ma kanfhm walo","Ghankhalli tlifoun f lkhzana mnin ntkalm m3ak","Ghan3ti lik l'jiha li bghiti f lmaida","Ghan3awnek tkhmmi f chi 7aja ma 3rftich tdirha","Ghan3awd nbghik koul sbah b nfs lhamas","Ghan9ol lik chokran 3la ay 7aja sghira katdirha liya"];let n=0;
+setM(`<h2>Wa3ud dyali</h2><p style="margin:0 0 8px">Dghet 3la koul wa3d bach nwqe3 3lih</p>${W.map(w=>`<div class="cp wd">${w}</div>`).join("")}<p id="wm" style="font-family:Caveat;font-size:1.6rem;color:var(--rose);margin:6px 0 0"></p>`);
+mc.querySelectorAll(".wd").forEach(e=>e.onclick=()=>{if(e.classList.contains("sg"))return;e.classList.add("sg");e.insertAdjacentHTML("beforeend"," "+I("hrt","beat"));boom(8);if(++n===W.length)$("#wm").textContent="Kolchi mwqe3, w ghan3ich bih."})};
+EX.o=()=>{const Wd=["Kanbghik","bzaf","a","Hiba,","nti","dnyti","w","7yati"],Cl=["#ff6fa5","#ffb347","#c9a8ff","#ff8aa0","#8bd3a8","#ff9ec0","#9ec9ff","#e0497f"],got=[];let n=0;
+const B=Wd.map((w,i)=>{const x=40+(i%4)*80,y=i>3?150:60,c=Cl[i];return`<g class="bl" data-i="${i}" transform="translate(${x} ${y})" style="cursor:pointer"><g><animateTransform attributeName="transform" type="translate" values="0 0;0 -9;0 0" dur="${2+i*.3}s" repeatCount="indefinite"/><g class="bi"><ellipse rx="25" ry="31" fill="${c}"/><path d="M-5 30h10l-5 7z" fill="${c}"/><path d="M0 37q-7 12 0 24" stroke="#b78" fill="none"/><ellipse cx="-9" cy="-12" rx="5" ry="9" fill="#fff" opacity=".4"/></g></g></g>`}).join("");
+setM(`<h2>Balounat</h2><p id="bw" style="min-height:2.4em;margin:0;font-family:Caveat;font-size:1.6rem;color:var(--deep)">${Wd.map(()=>"...").join(" ")}</p><svg viewBox="0 0 320 222" style="width:100%">${B}</svg><style>.bi{transform-box:fill-box;transform-origin:50% 50%;transition:transform .25s,opacity .25s}.bi.pp{transform:scale(1.7);opacity:0}</style>`);
+mc.querySelectorAll(".bl").forEach(e=>e.onclick=()=>{const i=+e.dataset.i;if(got[i])return;got[i]=1;e.querySelector(".bi").classList.add("pp");$("#bw").textContent=Wd.map((w,j)=>got[j]?w:"...").join(" ");boom(6);if(++n===Wd.length)boom(40)})};
+
 // ===== music =====
 let ti=0;function load(i,p){ti=(i+TRACKS.length)%TRACKS.length;au.src=TRACKS[ti].f;if(p)au.play().catch(()=>{});ui()}
-function music(p){load(0,p);$("#mini").style.display="grid"}
+function music(p){load(Math.random()*TRACKS.length|0,p);$("#mini").style.display="grid"}
 function ui(){const v=$("#vin");if(!v)return;$("#tt").textContent=TRACKS[ti].t;$("#ta").textContent=TRACKS[ti].a;v.classList.toggle("play",!au.paused);$("#pp").innerHTML=I(au.paused?"ply":"pse");document.querySelectorAll(".tl li").forEach(l=>l.classList.toggle("cur",+l.dataset.i===ti))}
-au.onplay=au.onpause=ui;au.onended=()=>load(ti+1,true);au.ontimeupdate=()=>{const s=$("#sk");if(s&&au.duration)s.value=au.currentTime/au.duration*1000};
+au.onplay=au.onpause=ui;au.addEventListener("play",()=>document.body.classList.add("pl"));au.addEventListener("pause",()=>document.body.classList.remove("pl"));au.addEventListener("loadstart",()=>{const n=$("#np");n.textContent=TRACKS[ti].t+" - "+TRACKS[ti].a;n.classList.add("on");setTimeout(()=>n.classList.remove("on"),4200)});$("#eq").innerHTML=[...Array(26)].map((_,i)=>`<i style="animation-delay:${-(i*.37%1.1).toFixed(2)}s;animation-duration:${(.7+i*.13%.8).toFixed(2)}s"></i>`).join("");addEventListener("pointerdown",()=>{if(!au.src)music(true)},{once:true});au.onended=()=>load(ti+1+(Math.random()*(TRACKS.length-1)|0),true);au.ontimeupdate=()=>{const s=$("#sk");if(s&&au.duration)s.value=au.currentTime/au.duration*1000};
 $("#mini").onclick=()=>{au.paused?au.play():au.pause()};
 
 // ===== 6. neon particle heart =====
