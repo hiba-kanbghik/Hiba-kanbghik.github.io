@@ -1,0 +1,665 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0d0710">
+<title>LP10 Obfuscator — instant Lua script protection</title>
+<meta name="description" content="Paste a Roblox Lua script, obfuscate it in your browser, copy the result. Nothing is uploaded anywhere.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Space+Mono:wght@400;700&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0f0a1a;--bg2:#150e24;--card:#1a1228;--line:#2d2145;--p:#7c3fd0;--p2:#b794ff;--tx:#f0eaff;--mu:#a89cc4;--ok:#5be3a0;--chip:#241838;--bd2:#4a2f7a;--pre:#0b0715;--glow:#7c3fd055;--code:#d6c4ff;--hdr:rgba(15,10,26,.88)}
+:root[data-th=hw]{--bg:#0d0710;--bg2:#150a18;--card:#1c101d;--line:#43243a;--p:#e8650a;--p2:#ffa347;--tx:#fff1e6;--mu:#c9a995;--chip:#2a1527;--bd2:#7a3a1c;--pre:#080408;--glow:#ff7a1a55;--code:#ffd2a8;--hdr:rgba(13,7,16,.88);--hg:#3d1807}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tx);font:400 16px/1.6 'Space Grotesk',system-ui,sans-serif;padding-top:env(safe-area-inset-top);padding-bottom:env(safe-area-inset-bottom);overflow-x:hidden}
+[data-th=hw] body{background:radial-gradient(ellipse at 50% -10%,var(--hg) 0,transparent 55%),var(--bg)}
+h1,h2,.logo b{font-family:Syne,sans-serif;font-weight:800;line-height:1.1}
+.mono{font-family:'Space Mono',monospace}
+a{color:var(--p2)}
+.wrap{max-width:1040px;margin:0 auto;padding:0 20px}
+header{position:sticky;top:0;z-index:20;background:var(--hdr);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.hbar{display:flex;align-items:center;justify-content:space-between;padding:16px 0}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--tx);min-width:0}
+.logo .mk{width:34px;height:34px;border-radius:10px;background:linear-gradient(135deg,var(--p),var(--p2));display:grid;place-items:center;font-size:17px;flex:none}
+.logo b{font-size:17px;white-space:nowrap}
+.logo span{font:12px/1 'Space Mono';color:var(--mu);display:block;white-space:nowrap}
+.back{font:600 13px 'Space Grotesk';color:var(--mu);text-decoration:none;border:1px solid var(--line);padding:8px 14px;border-radius:99px;flex:none}
+.back:hover{border-color:var(--bd2)}
+
+.hero{padding:52px 0 24px;text-align:center}
+.hero h1{font-size:clamp(30px,7vw,46px);margin:0 0 14px;letter-spacing:-.5px}
+.hero h1 i{font-style:normal;background:linear-gradient(120deg,var(--p2),var(--p));-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero p{color:var(--mu);max-width:540px;margin:0 auto;font-size:15px}
+
+.modes{display:flex;gap:8px;margin:22px 0 4px}
+.mode{flex:1;padding:13px 10px;border-radius:14px;border:1px solid var(--line);background:var(--chip);color:var(--mu);font:700 13px 'Space Grotesk';cursor:pointer;-webkit-tap-highlight-color:transparent}
+.mode.on{background:var(--p);border-color:var(--p);color:#fff}
+
+.tool{display:grid;gap:18px;margin:20px 0}
+@media(min-width:860px){.tool{grid-template-columns:1fr 1fr}}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:24px;padding:20px;display:flex;flex-direction:column;gap:12px;min-width:0}
+.panel .ph{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.panel .ph b{font-size:14px}
+.panel .ph small{color:var(--mu);font:12px 'Space Mono'}
+textarea{width:100%;min-height:220px;resize:vertical;background:var(--pre);border:1px solid var(--line);border-radius:16px;padding:16px;color:var(--code);font:13px/1.6 'Space Mono',monospace;outline:0}
+textarea:focus{border-color:var(--p)}
+textarea::placeholder{color:var(--mu)}
+textarea[readonly]{color:var(--mu)}
+input.s{width:100%;padding:13px 16px;background:var(--pre);border:1px solid var(--line);border-radius:14px;color:var(--code);font:12.5px 'Space Mono';outline:0}
+input.s:focus{border-color:var(--p)}
+input.s::placeholder{color:var(--mu)}
+
+.opts{display:flex;flex-wrap:wrap;gap:8px}
+.opt{border:1px solid var(--line);background:var(--chip);color:var(--mu);padding:9px 14px;border-radius:99px;font:600 12.5px 'Space Grotesk';cursor:pointer;user-select:none;-webkit-tap-highlight-color:transparent}
+.opt.on{background:var(--p);border-color:var(--p);color:#fff}
+
+.row{display:flex;gap:10px;flex-wrap:wrap}
+button.go{flex:1;min-width:160px;background:linear-gradient(120deg,var(--p),var(--p2));color:#1a0f2e;border:0;border-radius:99px;padding:15px 20px;font:800 14px Syne,sans-serif;cursor:pointer;box-shadow:0 8px 24px var(--glow)}
+button.go:active{transform:translateY(1px)}
+button.alt{background:var(--chip);color:var(--tx);border:1px solid var(--bd2);border-radius:99px;padding:13px 18px;font:600 13px 'Space Grotesk';cursor:pointer}
+button.alt:disabled{opacity:.45;cursor:not-allowed}
+
+.stats{display:flex;gap:16px;flex-wrap:wrap;color:var(--mu);font:12px 'Space Mono';padding-top:2px}
+.stats b{color:var(--p2)}
+
+.note{max-width:1040px;margin:0 auto 10px;padding:0 20px}
+.note .box{background:var(--chip);border:1px solid var(--line);border-radius:18px;padding:16px 18px;color:var(--mu);font-size:13px}
+.note .box b{color:var(--tx)}
+.note .box + .box{margin-top:10px}
+
+.how{display:grid;gap:14px;margin:38px 0;grid-template-columns:1fr}
+@media(min-width:700px){.how{grid-template-columns:repeat(3,1fr)}}
+.how div{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:18px}
+.how h3{font-size:16px;margin:0 0 6px;font-family:'Space Grotesk';font-weight:700}
+.how p{margin:0;color:var(--mu);font-size:13.5px}
+
+footer{border-top:1px solid var(--line);margin-top:30px;padding:26px 0 40px;text-align:center;color:var(--mu);font-size:13px}
+footer a{color:var(--mu);text-decoration:underline}
+
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom));transform:translate(-50%,140%);background:var(--card);border:1px solid var(--bd2);color:var(--tx);padding:11px 20px;border-radius:99px;font:600 13px 'Space Grotesk';transition:.35s;z-index:99;box-shadow:0 10px 30px #0008;max-width:88vw;text-align:center}
+.toast.on{transform:translate(-50%,0)}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap hbar">
+    <a class="logo" href="#">
+      <span class="mk">🔒</span>
+      <span><b>LP10 Obfuscator</b><span>by LPOLVO</span></span>
+    </a>
+    <a class="back" href="https://lpolvo.github.io">← LP10 HUB</a>
+  </div>
+</header>
+
+<section class="hero wrap">
+  <h1>Protect your <i>Lua</i> before anyone sees it</h1>
+  <p>Paste a Roblox script below. Everything runs in your browser — nothing is ever uploaded or stored anywhere.</p>
+</section>
+
+<div class="wrap">
+  <div class="modes">
+    <button class="mode on" data-mode="plain">Obfuscate a script</button>
+    <button class="mode" data-mode="ks">Build a key-system file</button>
+  </div>
+</div>
+
+<div class="wrap">
+  <div class="tool" id="toolPlain">
+    <div class="panel">
+      <div class="ph"><b>Your script</b><small id="inCount">0 chars</small></div>
+      <textarea id="input" placeholder="-- paste your Lua script here
+local function hello()
+    print('hi')
+end"></textarea>
+      <div class="opts" id="optsPlain">
+        <button class="opt on" data-k="stripComments">Strip comments</button>
+        <button class="opt on" data-k="encryptStrings">Encrypt strings</button>
+        <button class="opt on" data-k="splitNumbers">Split numbers</button>
+        <button class="opt on" data-k="renameLocals">Rename locals</button>
+      </div>
+      <div class="row">
+        <button class="go" id="run">Obfuscate script</button>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="ph"><b>Obfuscated output</b><small id="outCount">0 chars</small></div>
+      <textarea id="output" readonly placeholder="Your obfuscated script will appear here…"></textarea>
+      <div class="stats" id="stats" style="display:none">
+        <span>Size: <b id="statSize">—</b></span>
+        <span>Time: <b id="statTime">—</b></span>
+      </div>
+      <div class="row">
+        <button class="alt" id="copyBtn" disabled>⧉ Copy</button>
+        <button class="alt" id="dlBtn" disabled>⬇ Download .lua</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="tool" id="toolKS" style="display:none">
+    <div class="panel">
+      <div class="ph"><b>Key-system template</b><small id="ksCount">0 chars</small></div>
+      <textarea id="ksInput" placeholder="Paste your key-system script — the one that ends with loadstring(game:HttpGet(...))()"></textarea>
+      <div class="ph"><b>Script to protect</b><small id="scriptCount">0 chars</small></div>
+      <textarea id="scriptInput" placeholder="Paste the script you want embedded inside the key system"></textarea>
+      <div class="opts" id="optsKS">
+        <button class="opt on" data-k="stripComments">Strip comments</button>
+        <button class="opt on" data-k="encryptStrings">Encrypt strings</button>
+        <button class="opt on" data-k="splitNumbers">Split numbers</button>
+        <button class="opt on" data-k="renameLocals">Rename locals</button>
+        <button class="opt on" id="ksLightBtn">Also obfuscate the wrapper</button>
+      </div>
+      <div class="row">
+        <button class="go" id="runKS">Build key-system file</button>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="ph"><b>Final file</b><small id="ksOutCount">0 chars</small></div>
+      <textarea id="ksOutput" readonly placeholder="Your merged key-system file will appear here…"></textarea>
+      <div class="stats" id="ksStats" style="display:none">
+        <span>Size: <b id="ksStatSize">—</b></span>
+        <span>Time: <b id="ksStatTime">—</b></span>
+      </div>
+      <div class="row">
+        <button class="alt" id="ksCopyBtn" disabled>⧉ Copy</button>
+        <button class="alt" id="ksDlBtn" disabled>⬇ Download .lua</button>
+      </div>
+      <div class="ph"><b>Player loadstring</b><small>optional</small></div>
+      <input class="s" id="hostUrl" placeholder="Paste the raw URL where you'll host this file…">
+      <textarea id="loadstringOut" readonly rows="2" style="min-height:60px" placeholder='loadstring(game:HttpGet("..."))()'></textarea>
+      <div class="row">
+        <button class="alt" id="lsCopyBtn" disabled>⧉ Copy loadstring</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="note">
+  <div class="box"><b>Honest note:</b> this scrambles variable names, hides every string behind runtime decoding, and breaks up numbers — it makes a script very unpleasant to read. No obfuscator (here or anywhere) can make a script truly unopenable, since whatever runs it has to read the real code eventually. Always keep your own unobfuscated copy, and skim the output once before sharing it.</div>
+  <div class="box"><b>About the key-system mode:</b> it only runs in your browser — your template, secrets and script are never sent anywhere, even if your key-system has a real API key in it. The tool finds the <span class="mono">loadstring(game:HttpGet(...))()</span> line in your template and replaces it with your obfuscated script, embedded directly — so the final file has no second URL to protect.</div>
+</div>
+
+<div class="wrap how">
+  <div>
+    <h3>Strings, encrypted</h3>
+    <p>Every text string is converted to a byte table and decoded at runtime, so nothing readable sits in the file.</p>
+  </div>
+  <div>
+    <h3>Names, scrambled</h3>
+    <p>Local variables, function names, and parameters are renamed to short meaningless tokens.</p>
+  </div>
+  <div>
+    <h3>Numbers, split</h3>
+    <p>Plain numbers are rewritten as small arithmetic expressions that evaluate to the same value.</p>
+  </div>
+</div>
+
+<footer>
+  A free tool by LPOLVO · part of the <a href="https://lpolvo.github.io">LP10 HUB</a> family · nothing you paste ever leaves this page
+</footer>
+
+<div class="toast" id="toast">Copied</div>
+
+<script>
+// ---- theme: Halloween window mirrors the main LP10 HUB site ----
+(function(){
+  var d = new Date(), m = d.getMonth()+1, day = d.getDate();
+  var hw = (m===10 && day>=1) || (m===11 && day<=2);
+  if (hw) document.documentElement.setAttribute('data-th','hw');
+})();
+</script>
+
+<script>
+// LP10 Obfuscator engine — tokenizer + transforms (Luau-targeted)
+
+const KEYWORDS = new Set(["and","break","do","else","elseif","end","false","for","function",
+  "goto","if","in","local","nil","not","or","repeat","return","then","true","until","while",
+  "self","continue"]);
+
+function isWordChar(ch){ return /[A-Za-z0-9_]/.test(ch); }
+function isDigit(ch){ return ch >= '0' && ch <= '9'; }
+function isNameStart(ch){ return /[A-Za-z_]/.test(ch); }
+
+function tokenize(src){
+  const toks = [];
+  let i = 0, n = src.length;
+  function longBracketLevel(pos){
+    // at src[pos] == '[' ; check for [=*[
+    let j = pos + 1, level = 0;
+    while (src[j] === '='){ level++; j++; }
+    if (src[j] === '[') return { level, end: j+1 };
+    return null;
+  }
+  function readLongBracket(startContentPos, level){
+    const closer = ']' + '='.repeat(level) + ']';
+    const idx = src.indexOf(closer, startContentPos);
+    if (idx === -1) return { content: src.slice(startContentPos), end: n };
+    return { content: src.slice(startContentPos, idx), end: idx + closer.length };
+  }
+  while (i < n){
+    const ch = src[i];
+    if (ch === ' ' || ch === '\t' || ch === '\r' || ch === '\n'){
+      let j = i; while (j < n && /\s/.test(src[j])) j++;
+      toks.push({ t:'ws', v: src.slice(i,j) }); i = j; continue;
+    }
+    // comments
+    if (ch === '-' && src[i+1] === '-'){
+      const lb = (src[i+2] === '[') ? longBracketLevel(i+2) : null;
+      if (lb){
+        const { end } = readLongBracket(lb.end, lb.level);
+        toks.push({ t:'comment', v: src.slice(i, end) }); i = end; continue;
+      } else {
+        let j = i+2; while (j < n && src[j] !== '\n') j++;
+        toks.push({ t:'comment', v: src.slice(i, j) }); i = j; continue;
+      }
+    }
+    // long strings
+    if (ch === '[' && (src[i+1] === '[' || src[i+1] === '=')){
+      const lb = longBracketLevel(i);
+      if (lb){
+        const { content, end } = readLongBracket(lb.end, lb.level);
+        toks.push({ t:'longstring', v: src.slice(i,end), raw: content }); i = end; continue;
+      }
+    }
+    // quoted strings
+    if (ch === '"' || ch === "'"){
+      const quote = ch; let j = i+1; let raw = '';
+      while (j < n && src[j] !== quote){
+        if (src[j] === '\\'){ raw += src[j] + (src[j+1]||''); j += 2; }
+        else { raw += src[j]; j++; }
+      }
+      j++; // closing quote
+      toks.push({ t:'string', v: src.slice(i,j), quote, raw }); i = j; continue;
+    }
+    // numbers
+    if (isDigit(ch) || (ch === '.' && isDigit(src[i+1]))){
+      let j = i;
+      if (ch === '0' && (src[i+1] === 'x' || src[i+1] === 'X')){
+        j = i+2; while (j < n && /[0-9a-fA-F]/.test(src[j])) j++;
+      } else {
+        while (j < n && isDigit(src[j])) j++;
+        if (src[j] === '.'){ j++; while (j < n && isDigit(src[j])) j++; }
+        if (src[j] === 'e' || src[j] === 'E'){ j++; if (src[j]==='+'||src[j]==='-') j++; while (j<n && isDigit(src[j])) j++; }
+      }
+      toks.push({ t:'number', v: src.slice(i,j) }); i = j; continue;
+    }
+    // names / keywords
+    if (isNameStart(ch)){
+      let j = i+1; while (j < n && isWordChar(src[j])) j++;
+      const v = src.slice(i,j);
+      toks.push({ t: KEYWORDS.has(v) ? 'keyword' : 'name', v }); i = j; continue;
+    }
+    // multi-char symbols
+    const three = src.slice(i,i+3);
+    if (three === '...'){ toks.push({t:'sym',v:three}); i+=3; continue; }
+    const two = src.slice(i,i+2);
+    if (['==','~=','<=','>=','..','::','//'].includes(two)){ toks.push({t:'sym',v:two}); i+=2; continue; }
+    toks.push({ t:'sym', v: ch }); i++;
+  }
+  return toks;
+}
+
+// decode a Lua-escaped string body (between quotes) to raw bytes (as JS string of char codes 0-255)
+function decodeLuaString(raw){
+  let out = '';
+  for (let i=0;i<raw.length;i++){
+    if (raw[i] === '\\'){
+      const c = raw[i+1];
+      if (c === 'n'){ out+='\n'; i++; }
+      else if (c === 't'){ out+='\t'; i++; }
+      else if (c === 'r'){ out+='\r'; i++; }
+      else if (c === 'a'){ out+='\x07'; i++; }
+      else if (c === 'b'){ out+='\b'; i++; }
+      else if (c === 'f'){ out+='\f'; i++; }
+      else if (c === 'v'){ out+='\v'; i++; }
+      else if (c === '\\'){ out+='\\'; i++; }
+      else if (c === '"'){ out+='"'; i++; }
+      else if (c === "'"){ out+="'"; i++; }
+      else if (c === '\n'){ out+='\n'; i++; }
+      else if (c === 'x'){ const hex = raw.slice(i+2,i+4); out += String.fromCharCode(parseInt(hex,16)); i+=3; }
+      else if (/[0-9]/.test(c)){ let j=i+1,num=''; while(j<raw.length && num.length<3 && /[0-9]/.test(raw[j])){num+=raw[j];j++;} out+=String.fromCharCode(parseInt(num,10)); i=j-1; }
+      else { out += c; i++; }
+    } else { out += raw[i]; }
+  }
+  return out;
+}
+
+function randName(counter){
+  const letters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+  let n = counter, s = '';
+  do { s = letters[n % letters.length] + s; n = Math.floor(n/letters.length) - 1; } while (n >= 0);
+  return '_' + s + (counter % 7 === 0 ? Math.floor(Math.random()*9) : '');
+}
+
+function rngInt(max){ return Math.floor(Math.random()*max); }
+
+function obfuscate(src, opts){
+  opts = Object.assign({ stripComments:true, encryptStrings:true, splitNumbers:true, renameLocals:true }, opts||{});
+  let toks = tokenize(src);
+  if (opts.stripComments) toks = toks.filter(t => t.t !== 'comment');
+
+  // ---- identifier rename map ----
+  const renameMap = new Map();
+  let counter = 0;
+  function reg(name){
+    if (KEYWORDS.has(name)) return;
+    if (!renameMap.has(name)){ renameMap.set(name, randName(counter++)); }
+  }
+  if (opts.renameLocals){
+    const sig = toks.filter(t => t.t !== 'ws');
+    for (let k=0;k<sig.length;k++){
+      const t = sig[k];
+      if (t.t === 'keyword' && t.v === 'local'){
+        // local function NAME ( ... )
+        if (sig[k+1] && sig[k+1].v === 'function' && sig[k+2] && sig[k+2].t === 'name'){
+          reg(sig[k+2].v);
+          // params
+          let p = k+3;
+          if (sig[p] && sig[p].v === '('){
+            p++;
+            while (sig[p] && sig[p].v !== ')'){
+              if (sig[p].t === 'name') reg(sig[p].v);
+              p++;
+            }
+          }
+          continue;
+        }
+        // local NAME, NAME2, ... [= ...]
+        let p = k+1;
+        while (sig[p] && (sig[p].t === 'name')){
+          reg(sig[p].v);
+          p++;
+          if (sig[p] && sig[p].v === ',') { p++; continue; }
+          break;
+        }
+      }
+      // any function(...) params — includes global `function` decls too (safe: params always local)
+      if (t.t === 'keyword' && t.v === 'function'){
+        let p = k+1;
+        // skip dotted/colon name: name(.name|:name)*
+        while (sig[p] && sig[p].t === 'name'){
+          p++;
+          if (sig[p] && (sig[p].v === '.' || sig[p].v === ':')) { p++; continue; }
+          break;
+        }
+        if (sig[p] && sig[p].v === '('){
+          p++;
+          while (sig[p] && sig[p].v !== ')'){
+            if (sig[p].t === 'name') reg(sig[p].v);
+            p++;
+          }
+        }
+      }
+      // for NAME [, NAME2] in / = ... do
+      if (t.t === 'keyword' && t.v === 'for'){
+        let p = k+1;
+        while (sig[p] && sig[p].t === 'name'){
+          reg(sig[p].v);
+          p++;
+          if (sig[p] && sig[p].v === ',') { p++; continue; }
+          break;
+        }
+      }
+    }
+  }
+
+  // ---- build output, walking original (non-ws-filtered for spacing refs) token stream ----
+  const sig = toks.filter(t => t.t !== 'ws');
+
+  // precompute the enclosing bracket (if any) for every token, so we can tell a
+  // table-constructor key ({x=1}) apart from an ordinary comma-separated
+  // declaration/assignment list (local a,b = 1,2) — both have NAME followed by '='.
+  const enclosing = new Array(sig.length);
+  {
+    const stack = [];
+    for (let k=0;k<sig.length;k++){
+      enclosing[k] = stack.length ? stack[stack.length-1] : null;
+      const v = sig[k].v;
+      if (v === '(' || v === '[' || v === '{') stack.push(v);
+      else if (v === ')' || v === ']' || v === '}') stack.pop();
+    }
+  }
+
+  const out = [];
+  let strCounter = 0;
+  const decoderNames = [];
+
+  for (let k=0;k<sig.length;k++){
+    const t = sig[k];
+    const prevSig = sig[k-1];
+    const nextSig = sig[k+1];
+
+    if (t.t === 'name' && opts.renameLocals && renameMap.has(t.v)){
+      const isFieldAccess = prevSig && (prevSig.v === '.' || prevSig.v === ':');
+      const isTableKey = enclosing[k] === '{' && nextSig && nextSig.v === '=' &&
+                          sig[k+2] && sig[k+2].v !== '=';
+      if (!isFieldAccess && !isTableKey){
+        out.push({ t:'name', v: renameMap.get(t.v) });
+        continue;
+      }
+    }
+
+    if (t.t === 'string' && opts.encryptStrings){
+      const raw = decodeLuaString(t.raw);
+      const key = 17 + rngInt(230);
+      const bytes = [];
+      for (let b=0;b<raw.length;b++) bytes.push(((raw.charCodeAt(b) & 0xFF) ^ key ^ (b % 251)) );
+      const fname = '_sx' + (strCounter++);
+      decoderNames.push(fname);
+      out.push({ t:'call', v: `__LPDEC({${bytes.join(',')}},${key})` });
+      continue;
+    }
+
+    if (t.t === 'number' && opts.splitNumbers && /^[0-9]+$/.test(t.v) && t.v.length < 10){
+      const val = parseInt(t.v,10);
+      if (val >= 2 && val <= 1e9){
+        const mode = rngInt(3);
+        let expr;
+        if (mode === 0){ const a = rngInt(val); expr = `(${a}+${val-a})`; }
+        else if (mode === 1){ const a = 2 + rngInt(Math.max(1,Math.min(9, Math.floor(val/2)))); const rem = val % a; const div = Math.floor(val/a); expr = rem===0? `(${a}*${div})` : `(${a}*${div}+${rem})`; }
+        else { const a = val + 1 + rngInt(50); expr = `(${a}-${a-val})`; }
+        out.push({ t:'number', v: expr });
+        continue;
+      }
+    }
+
+    out.push(t);
+  }
+
+  // ---- reconstruct text ----
+  function tokText(t){
+    if (t.t === 'string') return t.v;
+    if (t.t === 'longstring') return t.v;
+    return t.v;
+  }
+  let result = '';
+  for (let k=0;k<out.length;k++){
+    const t = out[k];
+    const txt = tokText(t);
+    if (k>0){
+      const prev = out[k-1];
+      const pTxt = tokText(prev);
+      const pLast = pTxt[pTxt.length-1];
+      const cFirst = txt[0];
+      const bothWord = /[A-Za-z0-9_)]/.test(pLast) && /[A-Za-z0-9_(]/.test(cFirst) && !(prev.t==='sym' && /[()\[\]{},;]/.test(pLast));
+      const dashDash = pLast === '-' && cFirst === '-';
+      const dotDigit = pLast === '.' && /[0-9]/.test(cFirst);
+      if (bothWord || dashDash || dotDigit) result += ' ';
+    }
+    result += txt;
+  }
+
+  const decoderFn = opts.encryptStrings
+    ? `local function __LPDEC(t,k)local o={}for i=1,#t do o[i]=string.char((t[i]~k~((i-1)%251))%256)end;return table.concat(o)end\n`
+    : '';
+
+  return decoderFn + result;
+}
+
+
+
+</script>
+
+<script>
+(function(){
+  var opts = { stripComments:true, encryptStrings:true, splitNumbers:true, renameLocals:true };
+  var ksLight = true;
+
+  function wireOpts(container){
+    container.querySelectorAll('.opt[data-k]').forEach(function(btn){
+      btn.addEventListener('click', function(){
+        var k = btn.dataset.k;
+        opts[k] = !opts[k];
+        document.querySelectorAll('.opt[data-k="'+k+'"]').forEach(function(b){ b.classList.toggle('on', opts[k]); });
+      });
+    });
+  }
+  wireOpts(document.getElementById('optsPlain'));
+  wireOpts(document.getElementById('optsKS'));
+  document.getElementById('ksLightBtn').addEventListener('click', function(){
+    ksLight = !ksLight;
+    this.classList.toggle('on', ksLight);
+  });
+
+  // ---- mode switch ----
+  var toolPlain = document.getElementById('toolPlain');
+  var toolKS = document.getElementById('toolKS');
+  document.querySelectorAll('.mode').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      document.querySelectorAll('.mode').forEach(function(b){ b.classList.remove('on'); });
+      btn.classList.add('on');
+      var ks = btn.dataset.mode === 'ks';
+      toolPlain.style.display = ks ? 'none' : 'grid';
+      toolKS.style.display = ks ? 'grid' : 'none';
+    });
+  });
+
+  var toast = document.getElementById('toast');
+  function showToast(msg){
+    toast.textContent = msg;
+    toast.classList.add('on');
+    setTimeout(function(){ toast.classList.remove('on'); }, 2200);
+  }
+  function copyText(text){
+    return navigator.clipboard.writeText(text).catch(function(){
+      var ta = document.createElement('textarea');
+      ta.value = text; document.body.appendChild(ta); ta.select();
+      document.execCommand('copy'); document.body.removeChild(ta);
+    });
+  }
+  function download(text, name){
+    var blob = new Blob([text], {type:'text/plain'});
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement('a');
+    a.href = url; a.download = name;
+    document.body.appendChild(a); a.click(); document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  }
+
+  // ---- plain mode ----
+  var input = document.getElementById('input');
+  var output = document.getElementById('output');
+  var inCount = document.getElementById('inCount');
+  var outCount = document.getElementById('outCount');
+  var stats = document.getElementById('stats');
+  var statSize = document.getElementById('statSize');
+  var statTime = document.getElementById('statTime');
+  var copyBtn = document.getElementById('copyBtn');
+  var dlBtn = document.getElementById('dlBtn');
+
+  input.addEventListener('input', function(){ inCount.textContent = input.value.length + ' chars'; });
+
+  document.getElementById('run').addEventListener('click', function(){
+    var src = input.value;
+    if (!src.trim()){ showToast('Paste a script first'); return; }
+    var t0 = performance.now(), out;
+    try { out = obfuscate(src, opts); }
+    catch(e){ showToast('Could not parse that script'); console.error(e); return; }
+    var t1 = performance.now();
+    output.value = out;
+    outCount.textContent = out.length + ' chars';
+    stats.style.display = 'flex';
+    var pct = src.length ? Math.round((out.length/src.length)*100) : 0;
+    statSize.textContent = src.length + ' → ' + out.length + ' (' + pct + '%)';
+    statTime.textContent = Math.max(1, Math.round(t1-t0)) + ' ms';
+    copyBtn.disabled = false; dlBtn.disabled = false;
+  });
+  copyBtn.addEventListener('click', function(){ if(output.value){ copyText(output.value); showToast('Copied to clipboard'); } });
+  dlBtn.addEventListener('click', function(){ if(output.value){ download(output.value,'obfuscated.lua'); showToast('Downloaded'); } });
+
+  // ---- key-system mode ----
+  var ksInput = document.getElementById('ksInput');
+  var scriptInput = document.getElementById('scriptInput');
+  var ksCount = document.getElementById('ksCount');
+  var scriptCount = document.getElementById('scriptCount');
+  var ksOutput = document.getElementById('ksOutput');
+  var ksOutCount = document.getElementById('ksOutCount');
+  var ksStats = document.getElementById('ksStats');
+  var ksStatSize = document.getElementById('ksStatSize');
+  var ksStatTime = document.getElementById('ksStatTime');
+  var ksCopyBtn = document.getElementById('ksCopyBtn');
+  var ksDlBtn = document.getElementById('ksDlBtn');
+  var hostUrl = document.getElementById('hostUrl');
+  var loadstringOut = document.getElementById('loadstringOut');
+  var lsCopyBtn = document.getElementById('lsCopyBtn');
+
+  ksInput.addEventListener('input', function(){ ksCount.textContent = ksInput.value.length + ' chars'; });
+  scriptInput.addEventListener('input', function(){ scriptCount.textContent = scriptInput.value.length + ' chars'; });
+
+  function mergeIntoKeySystem(ksSrc, scriptObf){
+    var re = /loadstring\s*\(\s*game\s*:\s*HttpGet\s*\([^)]*\)\s*\)\s*\(\s*\)/;
+    if (re.test(ksSrc)){
+      return { merged: ksSrc.replace(re, '\ndo\n' + scriptObf + '\nend\n'), matched:true };
+    }
+    return {
+      merged: ksSrc + '\n\n-- LP10: no loadstring(game:HttpGet(...))() line was found, so the script\n-- below was appended instead of replacing it — please check placement.\ndo\n' + scriptObf + '\nend\n',
+      matched:false
+    };
+  }
+
+  document.getElementById('runKS').addEventListener('click', function(){
+    var ksSrc = ksInput.value, scriptSrc = scriptInput.value;
+    if (!ksSrc.trim() || !scriptSrc.trim()){ showToast('Paste both the key system and the script'); return; }
+    var t0 = performance.now(), scriptObf, ksProcessed;
+    try {
+      scriptObf = obfuscate(scriptSrc, opts);
+      ksProcessed = ksLight
+        ? obfuscate(ksSrc, { stripComments:true, renameLocals:true, encryptStrings:false, splitNumbers:false })
+        : ksSrc;
+    } catch(e){ showToast('Could not parse one of the scripts'); console.error(e); return; }
+    var merged = mergeIntoKeySystem(ksProcessed, scriptObf);
+    var t1 = performance.now();
+    ksOutput.value = merged.merged;
+    ksOutCount.textContent = merged.merged.length + ' chars';
+    ksStats.style.display = 'flex';
+    ksStatSize.textContent = (ksSrc.length + scriptSrc.length) + ' → ' + merged.merged.length;
+    ksStatTime.textContent = Math.max(1, Math.round(t1-t0)) + ' ms';
+    ksCopyBtn.disabled = false; ksDlBtn.disabled = false;
+    updateLoadstring();
+    showToast(merged.matched ? 'Key-system file built' : 'Built, but no loadstring(HttpGet) line was found — check the end of the file');
+  });
+
+  ksCopyBtn.addEventListener('click', function(){ if(ksOutput.value){ copyText(ksOutput.value); showToast('Copied to clipboard'); } });
+  ksDlBtn.addEventListener('click', function(){ if(ksOutput.value){ download(ksOutput.value,'keysystem.lua'); showToast('Downloaded'); } });
+
+  function updateLoadstring(){
+    var url = hostUrl.value.trim();
+    if (url && ksOutput.value){
+      loadstringOut.value = 'loadstring(game:HttpGet("' + url + '"))()';
+      lsCopyBtn.disabled = false;
+    } else {
+      loadstringOut.value = '';
+      lsCopyBtn.disabled = true;
+    }
+  }
+  hostUrl.addEventListener('input', updateLoadstring);
+  lsCopyBtn.addEventListener('click', function(){ if(loadstringOut.value){ copyText(loadstringOut.value); showToast('Copied to clipboard'); } });
+})();
+</script>
+
+</body>
+</html>
